@@ -19,7 +19,7 @@ $router->get('/[{length}]', function ($length = 100) use ($router) {
         $response = $client->get('http://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx');
 
         return implode(array_map(function ($data) {
-            return trim(preg_replace('/\s/', '', strip_tags($data)));
+            return trim(preg_replace('/\s|　/', '', strip_tags($data)));
         }, array_column(json_decode($response->getBody()->getContents()), 'FoodFeature')));
     });
 
